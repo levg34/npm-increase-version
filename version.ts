@@ -1,3 +1,5 @@
+import fs from 'fs/promises'
+
 export enum VersionType {
     MAJOR,
     MINOR,
@@ -33,5 +35,11 @@ export class Version {
 
     toString(): string {
         return `${this.major}.${this.minor}.${this.fix}`
+    }
+
+    static async readFromPackageJson(file?: string): Promise<Version> {
+        const content = await fs.readFile(file ?? 'package.json','utf-8')
+        const {version} = JSON.parse(content)
+        return new Version(version)
     }
 }

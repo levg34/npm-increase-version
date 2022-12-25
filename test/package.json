@@ -1,6 +1,6 @@
 {
   "name": "npm-version-publisher-test",
-  "version": "0.0.1",
+  "version": "1.5.3",
   "private": true,
   "description": "release npm packages without hassle",
   "main": "index.js",

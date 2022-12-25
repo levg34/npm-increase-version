@@ -32,4 +32,9 @@ describe('Test version class', () => {
         version.increment(VersionType.FIX)
         expect(version.toString()).toBe('1.5.4')
     })
+
+    it('should be able to parse a package.json file to extract the version', async () => {
+        const version = await Version.readFromPackageJson('test/package.json')
+        expect(version.toString()).toBe('1.5.3')
+    })
 })
