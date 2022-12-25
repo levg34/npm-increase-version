@@ -1,21 +1,23 @@
 import fs from 'fs/promises'
 
 export enum VersionType {
-    MAJOR,
-    MINOR,
-    FIX
+    MAJOR = 'M',
+    MINOR = 'm',
+    FIX = 'f'
 }
 
 export class Version {
     major: number
     minor: number
     fix:   number
+    private file?: string
 
-    constructor(version: string) {
+    constructor(version: string, file?: string) {
         const splittedVersion = version.split('.')
         this.major = Number(splittedVersion[0])
         this.minor = Number(splittedVersion[1])
         this.fix = Number(splittedVersion[2])
+        if (file) this.file = file
     }
 
     increment(type: VersionType) {
@@ -37,9 +39,19 @@ export class Version {
         return `${this.major}.${this.minor}.${this.fix}`
     }
 
+    async save(): Promise<void> {
+        const content = await fs.readFile(this.file ?? 'package.json','utf-8')
+        const parsed = JSON.parse(content)
+        parsed.version = this.toString()
+        await fs.writeFile(this.file ?? 'package.json', JSON.stringify(parsed,null,2))
+    }
+
     static async readFromPackageJson(file?: string): Promise<Version> {
         const content = await fs.readFile(file ?? 'package.json','utf-8')
         const {version} = JSON.parse(content)
+        if (file) {
+            return new Version(version, file)
+        }
         return new Version(version)
     }
 }

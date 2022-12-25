@@ -1,6 +1,7 @@
+import fs from 'fs/promises'
 import { Version, VersionType } from '../version'
 
-describe('Test version class', () => {
+describe('test Version class basic constructor and methods', () => {
     const VERSION = '1.5.3'
 
     it('should be able to parse a version', () => {
@@ -36,5 +37,25 @@ describe('Test version class', () => {
     it('should be able to parse a package.json file to extract the version', async () => {
         const version = await Version.readFromPackageJson('test/package.json')
         expect(version.toString()).toBe('1.5.3')
+    })
+})
+
+describe('change a package version in an existing package.json file', () => {
+    beforeAll(async () => {
+        // copy the package.json
+        await fs.copyFile('test/package.json', 'test/package-backup.json')
+    })
+    it('should edit the version', async () => {
+        // edit the version
+        const version = await Version.readFromPackageJson('test/package.json')
+        version.increment(VersionType.MINOR)
+        await version.save()
+        const newVersion = await Version.readFromPackageJson('test/package.json')
+        expect(newVersion.toString()).toBe('1.6.0')
+    })
+    afterAll(async () => {
+        // restore the package.json
+        await fs.copyFile('test/package-backup.json', 'test/package.json')
+        await fs.rm('test/package-backup.json')
     })
 })
