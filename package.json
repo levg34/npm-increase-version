@@ -1,6 +1,6 @@
 {
   "name": "npm-version-publisher",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "release npm packages without hassle",
   "main": "index.js",
   "scripts": {
