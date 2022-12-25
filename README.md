@@ -1,4 +1,4 @@
-# npm-version-publisher
+# npm-increase-version
 
 Increments the major/minor/fix version of your package.json for you!
 

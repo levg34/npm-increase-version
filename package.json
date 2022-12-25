@@ -1,5 +1,5 @@
 {
-  "name": "npm-version-publisher",
+  "name": "npm-increase-version",
   "version": "1.0.0",
   "description": "release npm packages without hassle",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/levg34/npm-version-publisher.git"
+    "url": "git+https://github.com/levg34/npm-increase-version.git"
   },
   "keywords": [
     "npm",
@@ -19,9 +19,9 @@
   "author": "levg34",
   "license": "GPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/levg34/npm-version-publisher/issues"
+    "url": "https://github.com/levg34/npm-increase-version/issues"
   },
-  "homepage": "https://github.com/levg34/npm-version-publisher#readme",
+  "homepage": "https://github.com/levg34/npm-increase-version#readme",
   "devDependencies": {
     "@types/args": "^5.0.0",
     "@types/jest": "^29.2.4",
