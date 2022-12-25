@@ -53,6 +53,11 @@ describe('change a package version in an existing package.json file', () => {
         const newVersion = await Version.readFromPackageJson('test/package.json')
         expect(newVersion.toString()).toBe('1.6.0')
     })
+    it('should change nothing but the version', async () => {
+        const expectedContent = await fs.readFile('test/package.json', 'utf-8')
+        const content = await fs.readFile('test/package-reference.json', 'utf-8')
+        expect(content).toBe(expectedContent)
+    })
     afterAll(async () => {
         // restore the package.json
         await fs.copyFile('test/package-backup.json', 'test/package.json')

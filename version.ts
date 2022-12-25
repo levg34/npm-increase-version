@@ -43,7 +43,7 @@ export class Version {
         const content = await fs.readFile(this.file ?? 'package.json','utf-8')
         const parsed = JSON.parse(content)
         parsed.version = this.toString()
-        await fs.writeFile(this.file ?? 'package.json', JSON.stringify(parsed,null,2))
+        await fs.writeFile(this.file ?? 'package.json', JSON.stringify(parsed,null,2)+'\n')
     }
 
     static async readFromPackageJson(file?: string): Promise<Version> {
