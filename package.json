@@ -1,8 +1,11 @@
 {
   "name": "npm-increase-version",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "release npm packages without hassle",
   "main": "index.js",
+  "bin": {
+    "npm-increase-version": "index.js"
+  },
   "scripts": {
     "test": "jest",
     "start": "ts-node index.ts"
