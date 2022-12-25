@@ -2,6 +2,24 @@
 
 Increments the major/minor/fix version of your package.json for you!
 
+## Current working conditions
+
+Install: `npm install --save-dev npm-increase-version`
+
+Add in package.json:
+
+```json
+  ...
+  "scripts": {
+    ...
+    "increase-version": "node_modules/npm-increase-version/index.js"
+  },
+```
+
+Run with: `npm run increase-version -- -t [f/m/M]`
+
+Enjoy :)
+
 ## Install
 
 Run `npm install -g npm-increase-version`
