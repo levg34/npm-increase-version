@@ -34,6 +34,12 @@ describe('test Version class basic constructor and methods', () => {
         expect(version.toString()).toBe('1.5.4')
     })
 
+    it('should not increment anything if NO_CHANGE is chosen', () => {
+        const version = new Version(VERSION)
+        version.increment(VersionType.NO_CHANGE)
+        expect(version.toString()).toBe('1.5.3')
+    })
+
     it('should be able to create the tag', () => {
         const version = new Version(VERSION)
         expect(version.getTag()).toBe('v1.5.3')

@@ -1,6 +1,7 @@
 import args from 'args'
-import fs from 'fs/promises'
-import { Version, VersionType } from './version'
+import { getVersionIncreaseFromCommit, tag as createTag } from './git-utils'
+import { Version } from './version'
+import { getVersionTypeFromCmd } from './version-utils'
 
 args.options([
     {
@@ -15,19 +16,10 @@ args.options([
     },
     {
         name: 'ci',
-        'description': 'Use in CI environment. If true, creates a file with the version after increasing the version',
+        'description': 'Use in CI environment. If true, determines the version solely from the last commit message (release:[fix|minor|major]). Example: release:fix fix the broken thing.',
         defaultValue: false
     }
 ])
-
-type CmdType = 'M' | 'm' | 'f' | 'major' | 'minor' | 'fix'
-
-const getVersionTypeFromCmd = (cmd: CmdType) => {
-    if (cmd === 'M' || cmd === 'major') return VersionType.MAJOR
-    if (cmd === 'm' || cmd === 'minor') return VersionType.MINOR
-    if (cmd === 'f' || cmd === 'fix') return VersionType.FIX
-    throw Error('Unknown version type')
-}
 
 const flags = args.parse(process.argv)
 
@@ -38,11 +30,16 @@ const main = async () => {
         if (flags.tag) {
             console.log(version.getTag())
         } else {
-            version.increment(getVersionTypeFromCmd(flags.increase))
-            await version.save();
             if (flags.ci) {
-                fs.writeFile('VERSION',version.getTag())
+                const increase = await getVersionIncreaseFromCommit()
+                version.increment(increase)
+            } else {
+                version.increment(getVersionTypeFromCmd(flags.increase))
             }
+            await version.save();
+            // commit the version change
+            // tag
+            // await createTag(version.getTag())
             console.log('Upgraded from version '+oldVersion+' to version '+version.toString()+'.')
         }
     } catch (error) {

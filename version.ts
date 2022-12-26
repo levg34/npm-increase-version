@@ -3,7 +3,8 @@ import fs from 'fs/promises'
 export enum VersionType {
     MAJOR = 'M',
     MINOR = 'm',
-    FIX = 'f'
+    FIX = 'f',
+    NO_CHANGE = 'nc'
 }
 
 export class Version {
@@ -30,6 +31,8 @@ export class Version {
             this.fix = 0
         } else if (type === VersionType.FIX) {
             this.fix += 1
+        } else if (type === VersionType.NO_CHANGE) {
+            // Do nothing
         } else {
             throw Error('Unknown version type')
         }
