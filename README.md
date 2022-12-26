@@ -27,17 +27,18 @@ Run `npm install -g npm-increase-version`
 ## Usage
 
 ```
-  Usage: npm-increase-version [options] [command]
+  Usage: index.ts [options] [command]
   
   Commands:
     help     Display help
     version  Display version
   
   Options:
-    -h, --help          Output usage information
-    -t, --type [value]  The type of version to increment. For example, M or major increments the major version, m the minor, and f the fix (defaults to "minor")
-    -v, --version       Output the version number
-  
+    -c, --ci                Use in CI environment. If true, determines the version solely from the last commit message (release:[fix|minor|major]). Example: release:fix fix the broken thing. (disabled by default)
+    -h, --help              Output usage information
+    -i, --increase [value]  The type of version to increment. For example, M or major increments the major version, m the minor, and f the fix (defaults to "minor")
+    -t, --tag               Returns the tag to create (disabled by default)
+    -v, --version           Output the version number
 ```
 
 Example:
