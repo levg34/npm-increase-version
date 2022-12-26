@@ -29,3 +29,9 @@ export async function commit(message: string): Promise<void> {
     await execAsync(`git commit -a -m "${message}"`)
     await execAsync('git push')
 }
+
+export async function tagExists(tag: string): Promise<boolean> {
+    const {stdout} = await execAsync('git tag')
+    const tags = stdout.split('\n')
+    return tags.includes(tag)
+}

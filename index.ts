@@ -41,9 +41,8 @@ const main = async () => {
             console.log(commitMsg)
             // commit the version change
             await commit(commitMsg)
-            // tag
+            // tag & push tag
             await createTag(version.getTag())
-            // push tag
         }
     } catch (error) {
         console.error(error);
