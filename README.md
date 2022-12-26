@@ -27,7 +27,7 @@ Run `npm install -g npm-increase-version`
 ## Usage
 
 ```
-  Usage: index.ts [options] [command]
+  Usage: npm-increase-version [options] [command]
   
   Commands:
     help     Display help
