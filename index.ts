@@ -1,5 +1,5 @@
 import args from 'args'
-import { getVersionIncreaseFromCommit, tag as createTag } from './git-utils'
+import { getVersionIncreaseFromCommit, createTag, commit } from './git-utils'
 import { Version } from './version'
 import { getVersionTypeFromCmd } from './version-utils'
 
@@ -37,10 +37,13 @@ const main = async () => {
                 version.increment(getVersionTypeFromCmd(flags.increase))
             }
             await version.save();
+            const commitMsg = 'Upgraded from version ' + oldVersion + ' to version ' + version.toString() + '.'
+            console.log(commitMsg)
             // commit the version change
+            await commit(commitMsg)
             // tag
-            // await createTag(version.getTag())
-            console.log('Upgraded from version '+oldVersion+' to version '+version.toString()+'.')
+            await createTag(version.getTag())
+            // push tag
         }
     } catch (error) {
         console.error(error);

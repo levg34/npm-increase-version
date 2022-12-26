@@ -20,7 +20,12 @@ export async function getVersionIncreaseFromCommit(): Promise<VersionType> {
     return getVersionIncrease(message)
 }
 
-export async function tag(tag: string): Promise<string> {
-    const {stdout} = await execAsync('git tag...')
-    return stdout
+export async function createTag(tag: string): Promise<void> {
+    await execAsync('git tag '+tag)
+    await execAsync('git push origin '+tag)
+}
+
+export async function commit(message: string): Promise<void> {
+    await execAsync(`git commit -a -m "${message}"`)
+    await execAsync('git push')
 }
