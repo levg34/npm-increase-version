@@ -34,6 +34,11 @@ describe('test Version class basic constructor and methods', () => {
         expect(version.toString()).toBe('1.5.4')
     })
 
+    it('should be able to create the tag', () => {
+        const version = new Version(VERSION)
+        expect(version.getTag()).toBe('v1.5.3')
+    })
+
     it('should be able to parse a package.json file to extract the version', async () => {
         const version = await Version.readFromPackageJson('test/package.json')
         expect(version.toString()).toBe('1.5.3')

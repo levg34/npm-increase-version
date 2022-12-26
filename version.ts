@@ -11,7 +11,7 @@ export class Version {
     minor: number
     fix:   number
     private file?: string
-
+    
     constructor(version: string, file?: string) {
         const splittedVersion = version.split('.')
         this.major = Number(splittedVersion[0])
@@ -19,7 +19,7 @@ export class Version {
         this.fix = Number(splittedVersion[2])
         if (file) this.file = file
     }
-
+    
     increment(type: VersionType) {
         if (type === VersionType.MAJOR) {
             this.major += 1
@@ -33,6 +33,10 @@ export class Version {
         } else {
             throw Error('Unknown version type')
         }
+    }
+
+    getTag(): string {
+        return `v${this.toString()}`
     }
 
     toString(): string {
