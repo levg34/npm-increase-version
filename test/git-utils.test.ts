@@ -28,13 +28,3 @@ describe('Test git-utils', () => {
         expect(version).toBe(VersionType.NO_CHANGE)
     })
 })
-
-describe('Check list of tags', () => {
-    it('tag v2.1.0 exists', async () =>{
-        expect(await tagExists('v2.1.0')).toBe(true)
-        expect(await tagExists('v2.1.11')).toBe(false)
-    })
-    it('tag v0.0.0 does not exist', async () =>{
-        expect(await tagExists('v0.0.0')).toBe(false)
-    })
-})
