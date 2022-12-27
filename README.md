@@ -16,7 +16,7 @@ Add in package.json:
   },
 ```
 
-Run with: `npm run increase-version -- -t [f/m/M]`
+Run with: `npm run increase-version -- -i [f/m/M]`
 
 Enjoy :)
 
