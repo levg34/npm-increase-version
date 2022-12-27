@@ -45,13 +45,15 @@ Example:
 
 ```bash
 cd my-package # current version: 2.4.19
-npm-increase-version -t fix
+npm-increase-version -i fix
 # output --> Upgraded from version 2.4.19 to version 2.4.20.
 # current version 2.4.20
 npm-increase-version
 # output --> Upgraded from version 2.4.20 to version 2.5.0.
 # current version 2.5.0
-npm-increase-version -t M
+npm-increase-version -t
+# output --> v2.5.0
+npm-increase-version -i M
 # output --> Upgraded from version 2.5.0 to version 3.0.0.
 # current version 3.0.0
 ```
