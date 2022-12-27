@@ -1,6 +1,6 @@
 import args from 'args'
 import { getVersionIncreaseFromCommit, createTag, commit, tagExists } from './git-utils'
-import { Version } from './version'
+import { Version, VersionType } from './version'
 import { getVersionTypeFromCmd } from './version-utils'
 
 args.options([
@@ -32,6 +32,10 @@ const main = async () => {
         } else {
             if (flags.ci) {
                 const increase = await getVersionIncreaseFromCommit()
+                if (increase === VersionType.NO_CHANGE) {
+                    console.info('No release necessary.')
+                    return
+                }
                 version.increment(increase)
             } else {
                 version.increment(getVersionTypeFromCmd(flags.increase))
