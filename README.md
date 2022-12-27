@@ -57,3 +57,20 @@ npm-increase-version -i M
 # output --> Upgraded from version 2.5.0 to version 3.0.0.
 # current version 3.0.0
 ```
+
+# Usage with CI
+
+First, integrate into your CI pipeline after the tests:
+
+```yaml
+- npm install -g npm-increase-version
+- npm-increase-version --ci
+```
+
+To work, your commits must be the following:
+
+- For a major release: `release:major <your commit message>`
+- For a minor release: `release:minor <your commit message>` or `release: <your commit message>`
+- For a fix: `release:fix <your commit message>`
+
+If you just want to commit without releasing, just commit as you would normally; as long as your commit message does not start with `release:` it will be fine.
