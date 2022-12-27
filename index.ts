@@ -1,5 +1,5 @@
 import args from 'args'
-import { getVersionIncreaseFromCommit, createTag, commit } from './git-utils'
+import { getVersionIncreaseFromCommit, createTag, commit, tagExists } from './git-utils'
 import { Version } from './version'
 import { getVersionTypeFromCmd } from './version-utils'
 
@@ -16,7 +16,7 @@ args.options([
     },
     {
         name: 'ci',
-        'description': 'Use in CI environment. If true, determines the version solely from the last commit message (release:[fix|minor|major]). Example: release:fix fix the broken thing.',
+        description: 'Use in CI environment. If true, determines the version solely from the last commit message (release:[fix|minor|major]). Example: release:fix fix the broken thing.',
         defaultValue: false
     }
 ])
@@ -42,7 +42,14 @@ const main = async () => {
             // commit the version change
             await commit(commitMsg)
             // tag & push tag
-            await createTag(version.getTag())
+            const tag = version.getTag()
+            const ttagExists = await tagExists(tag)
+            if (ttagExists) {
+                console.warn(`Tag ${tag} already exists.`)
+                console.warn(`To overwrite it, run these commands:\n\tgit tag -f ${tag}\n\tgit push origin ${tag}`)
+            } else {
+                await createTag(tag)
+            }
         }
     } catch (error) {
         console.error(error);
